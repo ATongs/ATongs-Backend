@@ -1,0 +1,10 @@
+# dependencies
+node_modules
+
+# models
+models
+
+# env files
+.env
+.env.dev
+.env.prod

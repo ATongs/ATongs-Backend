@@ -1,0 +1,30 @@
+{
+    "name": "atongs-backend",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "test": "jest",
+        "lint": "eslint ./src",
+        "start:dev": "NODE_ENV=dev nodemon ./src/server/server.js",
+        "start:prod": "NODE_ENV=prod node ./src/server/server.js"
+    },
+    "keywords": [],
+    "author": "Ramadhan (nopedawn)",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@google-cloud/firestore": "^7.7.0",
+        "@hapi/boom": "^10.0.1",
+        "@tensorflow/tfjs": "^4.19.0",
+        "@tensorflow/tfjs-node": "^4.19.0",
+        "dotenv": "^16.4.5",
+        "express": "^4.17.1",
+        "file-type": "^19.0.0",
+        "multer": "^1.4.5-lts.1",
+        "eslint": "^9.4.0",
+        "jest": "^29.7.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.3"
+    }
+}

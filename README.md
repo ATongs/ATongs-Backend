@@ -3,7 +3,7 @@
 ## Description
 This repository is for the Backend side of the ATongs Application. The results will be an Endpoint URL that will be used when predicting waste in the ATongs App which is being developed by the Mobile Development Team as an ML Model prediction API.
 
-# Request
+## Request
 
 ```bash
 curl -X POST http://url-endpoint/predict -H "Content-Type: multipart/form-data" -F "image=@trash-bag.jpg"

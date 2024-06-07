@@ -17,8 +17,8 @@ class ModelService {
         return await tf.loadLayersModel(modelUrl);
     }
 
-    static getTop3Predictions(predictionArray) {
-        const top3Indices = Array.from(predictionArray)
+    static getTop3Classifications(classificationArray) {
+        const top3Indices = Array.from(classificationArray)
             .map((probability, index) => ({ probability, index }))
             .sort((a, b) => b.probability - a.probability)
             .slice(0, 3)
@@ -26,7 +26,7 @@ class ModelService {
 
         return top3Indices.map(index => ({
             label: classLabels[index],
-            probability: predictionArray[index]
+            probability: classificationArray[index]
         }));
     }
 }

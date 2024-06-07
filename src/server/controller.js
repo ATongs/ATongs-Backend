@@ -3,17 +3,18 @@ const CustomError = require('../exceptions/CustomError');
 const { Firestore } = require('@google-cloud/firestore');
 const multer = require('multer');
 const upload = multer();
+const classifyCollectionName = 'classifications-collection';
 
 const firestore = new Firestore();
 
-async function savePrediction(id, data) {
-    const documentRef = await firestore.collection('predictions-collection').doc(id).set(data);
+async function saveClassification(id, data) {
+    const documentRef = await firestore.collection(classifyCollectionName).doc(id).set(data);
     return documentRef.id;
 }
 
-exports.predict = upload.single('image');
+exports.classify = upload.single('image');
 
-exports.handlePredict = async (req, res) => {
+exports.handleClassify = async (req, res) => {
     try {
         const data = req.file;
         if (!data) {
@@ -25,27 +26,48 @@ exports.handlePredict = async (req, res) => {
         const tensor = await ModelService.loadImage(imageBuffer);
         const model = await ModelService.loadModel();
 
-        const prediction = model.predict(tensor);
-        const predictionArray = prediction.arraySync()[0];
+        const classification = model.predict(tensor);
+        const classificationArray = classification.arraySync()[0];
 
-        const top3Predictions = ModelService.getTop3Predictions(predictionArray);
+        const top3Classifications = ModelService.getTop3Classifications(classificationArray);
         const id = crypto.randomUUID();
         const createdAt = new Date().toISOString();
 
-        const predictionData = {
+        const classificationData = {
             id: id,
-            result: top3Predictions,
+            result: top3Classifications,
             createdAt: createdAt
         };
 
-        await savePrediction(id, predictionData);
+        await saveClassification(id, classificationData);
 
         const response = {
             status: 'success',
-            message: 'Model is predicted successfully',
+            message: 'Model is classified successfully',
             data: {
-                ...predictionData
+                ...classificationData
             }
+        };
+
+        return res.status(200).json(response);
+    } catch (err) {
+        console.error(err);
+        return res.status(err.statusCode || 500).json(CustomError.handle(err));
+    }
+};
+
+exports.handleClassifyHistories = async (req, res) => {
+    try {
+        const classificationsSnapshot = await firestore.collection(classifyCollectionName).get();
+        const classifications = [];
+        classificationsSnapshot.forEach(doc => {
+            classifications.push(doc.data());
+        });
+
+        const response = {
+            status: 'success',
+            message: 'Classification histories fetched successfully',
+            data: classifications
         };
 
         return res.status(200).json(response);

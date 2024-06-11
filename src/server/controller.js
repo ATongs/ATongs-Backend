@@ -42,7 +42,7 @@ exports.handleClassify = async (req, res) => {
             const model = await ModelService.loadModel();
             const classification = model.predict(tensor);
             const classificationArray = classification.arraySync()[0];
-            const topClassifications = ModelService.getBestClassification(classificationArray);
+            const topClassifications = ModelService.getClassification(classificationArray);
             const id = crypto.randomUUID();
             const createdAt = new Date().toISOString();
 

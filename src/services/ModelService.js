@@ -1,6 +1,7 @@
 const tf = require('@tensorflow/tfjs-node');
 const classLabels = ['biological', 'cardboard', 'clothes', 'glass', 'metal', 'paper', 'plastic', 'trash'];
 const validScore = [0.99, 1];
+const confidenceThreshold = 0.5;
 
 class ModelService {
     static async loadImage(imageBuffer) {
@@ -21,25 +22,28 @@ class ModelService {
         return await tf.loadLayersModel(modelUrl);
     }
 
-    static getBestClassification(classificationArray) {
+    static getClassification(classificationArray) {
         const bestIndex = classificationArray.indexOf(Math.max(...classificationArray));
         const bestProbability = classificationArray[bestIndex];
-        const bestLabel = classLabels[bestIndex];
+        const resultLabel = classLabels[bestIndex];
 
-        // Best Prediction
         if (bestProbability >= validScore[0] || validScore[1]) {
             return {
-                label: bestLabel,
+                label: resultLabel,
                 probability: bestProbability,
-                message: `Valid: ${bestLabel} ${validScore[1] * 100 + '%'}`
+                message: `Classified as: ${resultLabel}`
             };
-        }
-        // To predict as best as possible
-        else {
+        } else if (bestProbability < confidenceThreshold) {
             return {
-                label: bestLabel,
+                label: 'unknown',
                 probability: bestProbability,
-                message: `Possible: ${bestLabel}`
+                message: 'Image does not match any known classes'
+            };
+        } else {
+            return {
+                label: resultLabel,
+                probability: bestProbability,
+                message: `Possible: ${resultLabel}`
             };
         }
     }

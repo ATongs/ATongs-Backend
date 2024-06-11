@@ -5,14 +5,17 @@ This repository is for the Backend side of the ATongs Application. The results w
 
 ## API Requests & Responses
 
+### (POST) - Classifying Image
 
-**Request :** (POST) - Classifying Image
+**Endpoint :** `/classify`
+
+**Request :**
 
 ```bash
 curl -X POST http://localhost:9000/classify -H "Content-Type: multipart/form-data" -F "image=@biological-1.jpg"
 ```
 
-**Response :** (POST) - Classifying Image
+**Response :**
 
 <details>
   <summary>View Response</summary>
@@ -22,13 +25,13 @@ curl -X POST http://localhost:9000/classify -H "Content-Type: multipart/form-dat
       "status": "success",
       "message": "Model is classified successfully",
       "data": {
-        "id": "6c0df7b3-f48d-49b5-847f-d4655cf5e06f",
+        "id": "f499550d-3c4a-4717-8b08-0e4ad116af30",
         "result": {
           "label": "biological",
           "probability": 1,
-          "message": "Valid: biological 100%"
+          "message": "Classified as: biological"
         },
-        "createdAt": "2024-06-09T10:24:12.221Z"
+        "createdAt": "2024-06-11T07:12:22.754Z"
       }
     }
   ```
@@ -36,16 +39,18 @@ curl -X POST http://localhost:9000/classify -H "Content-Type: multipart/form-dat
 </details>
 
 <br>
-<hr>
-<br>
 
-**Request :** (GET) - Classified Histories
+### (GET) - Classified Histories
+
+**Endpoint :** `/classify/histories`
+
+**Request :**
 
 ```bash
 curl -X GET http://localhost:9000/classify/histories -H "Content-Type: multipart/form-data"
 ```
 
-**Response :** (GET) - Classified Histories
+**Response :**
 
 <details>
   <summary>View Response</summary>
@@ -57,33 +62,33 @@ curl -X GET http://localhost:9000/classify/histories -H "Content-Type: multipart
       "data": [
         {
           "result": {
-            "probability": 1,
-            "label": "biological",
-            "message": "Valid: biological 100%"
+            "probability": 0.9999983310699463,
+            "label": "glass",
+            "message": "Classified as: glass"
           },
-          "createdAt": "2024-06-09T10:24:12.221Z",
-          "imageUrl": "https://storage.googleapis.com/atongs_classified_images/images/8d43463e-468c-4096-b657-aabc3ed5bf43.jpg",
-          "id": "6c0df7b3-f48d-49b5-847f-d4655cf5e06f"
+          "createdAt": "2024-06-11T07:15:07.373Z",
+          "imageUrl": "https://storage.googleapis.com/atongs_bucket_images/images/f1b257fc-0570-4440-849a-5b47dbf5aac1.jpg",
+          "id": "9c34bc3a-4f90-4442-b5c6-dc07aa8de791"
         },
         {
           "result": {
             "probability": 0.5176808834075928,
             "label": "plastic",
-            "message": "Valid: plastic 100%"
+            "message": "Classified as: plastic"
           },
-          "createdAt": "2024-06-09T10:27:54.979Z",
-          "imageUrl": "https://storage.googleapis.com/atongs_classified_images/images/0eaf9624-3fcb-4b29-8265-0cff88a1920d.jpg",
-          "id": "6cbb1816-fe9d-4215-a4f0-bc642e66bfc3"
+          "createdAt": "2024-06-11T07:13:55.519Z",
+          "imageUrl": "https://storage.googleapis.com/atongs_bucket_images/images/44e56031-f883-470e-b59a-82b326702385.jpg",
+          "id": "b1c6d175-e38c-4c3f-9355-ba5e25103d16"
         },
         {
           "result": {
-            "probability": 0.9999983310699463,
-            "label": "glass",
-            "message": "Valid: glass 100%"
+            "probability": 1,
+            "label": "biological",
+            "message": "Classified as: biological"
           },
-          "createdAt": "2024-06-09T10:26:02.424Z",
-          "imageUrl": "https://storage.googleapis.com/atongs_classified_images/images/a9b77922-ea6a-42b9-a160-ee065c335154.jpg",
-          "id": "87116014-6245-4e9d-b749-7c09b814c65d"
+          "createdAt": "2024-06-11T07:12:22.754Z",
+          "imageUrl": "https://storage.googleapis.com/atongs_bucket_images/images/1cf18867-7e71-406a-bd53-84f7bda826f8.jpg",
+          "id": "f499550d-3c4a-4717-8b08-0e4ad116af30"
         }
       ]
     }

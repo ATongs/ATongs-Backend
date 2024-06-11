@@ -1,4 +1,23 @@
-# Deploy step
+# Quick Setup ADC - Google Cloud SDK
+
+## 1. Check version
+```bash
+gcloud --version
+```
+
+## 2. Initialize gcloud
+```bash
+gcloud init --no-launch-browser
+```
+
+## 3. Authenticate application default login
+```bash
+gcloud auth application-default login --no-launch-browser
+```
+
+<br>
+
+# Deploy Steps
 
 ## 1. Enable Artifact Registry API
 ```bash
@@ -21,6 +40,10 @@ gcloud builds submit --tag asia-southeast2-docker.pkg.dev/PROJECT-ID/capstone-ba
 ```bash
 gcloud run deploy atongs-backend \
     --image asia-southeast2-docker.pkg.dev/PROJECT-ID/capstone-backend/atongs-backend:1.0.0 \
+    --cpu=2 \
+    --memory=2Gi \
+    --timeout=3600 \
+    --max-instances=50 \
     --allow-unauthenticated \
     --region=asia-southeast2
 ```

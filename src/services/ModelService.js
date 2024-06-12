@@ -27,9 +27,12 @@ class ModelService {
         const bestProbability = classificationArray[bestIndex];
         const resultLabel = classLabels[bestIndex];
 
+<<<<<<< HEAD
         let explanation;
         let suggestion;
 
+=======
+>>>>>>> production
         switch (resultLabel) {
             case 'biological':
                 explanation = "tidak bisa didaur ulang";

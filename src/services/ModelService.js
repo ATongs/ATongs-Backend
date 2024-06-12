@@ -27,6 +27,12 @@ class ModelService {
         const bestProbability = classificationArray[bestIndex];
         const resultLabel = classLabels[bestIndex];
 
+<<<<<<< HEAD
+        let explanation;
+        let suggestion;
+
+=======
+>>>>>>> production
         switch (resultLabel) {
             case 'biological':
                 explanation = "tidak bisa didaur ulang";
@@ -67,19 +73,25 @@ class ModelService {
             return {
                 label: resultLabel,
                 probability: bestProbability,
-                message: `Classified as: ${resultLabel}`
+                message: `Classified as: ${resultLabel}`,
+                explanation: explanation,
+                suggestion: suggestion
             };
         } else if (bestProbability < confidenceThreshold) {
             return {
                 label: 'unknown',
                 probability: bestProbability,
-                message: 'Image does not match any known classes'
+                message: 'Image does not match any known classes',
+                explanation: explanation,
+                suggestion: suggestion
             };
         } else {
             return {
                 label: resultLabel,
                 probability: bestProbability,
-                message: `Possible: ${resultLabel}`
+                message: `Possible: ${resultLabel}`,
+                explanation: explanation,
+                suggestion: suggestion
             };
         }
     }

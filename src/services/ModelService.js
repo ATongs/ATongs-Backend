@@ -27,6 +27,42 @@ class ModelService {
         const bestProbability = classificationArray[bestIndex];
         const resultLabel = classLabels[bestIndex];
 
+                switch (resultLabel) {
+            case 'biological':
+                explanation = "tidak bisa didaur ulang";
+                suggestion = "Segera bawa ke bank sampah terdekat";
+                break;
+            case 'cardboard':
+                explanation = "bisa didaur ulang";
+                suggestion = "Bawa ke bank sampah kertas terdekat";
+                break;
+            case 'clothes':
+                explanation = "tidak bisa didaur ulang";
+                suggestion = "Bawa ke bank sampah pakaian terdekat";
+                break;
+            case 'glass':
+                explanation = "bisa didaur ulang";
+                suggestion = "Bawa ke bank sampah pakaian terdekat";
+                break;
+            case 'metal':
+                explanation = "bisa didaur ulang";
+                suggestion = "Bawa ke bank sampah pakaian terdekat";
+                break;
+            case 'papper':
+                explanation = "bisa didaur ulang";
+                suggestion = "Bawa ke bank sampah pakaian terdekat";
+                break;
+            case 'plastic':
+                explanation = "tidak bisa didaur ulang";
+                suggestion = "Bawa ke bank sampah pakaian terdekat";
+                break;
+            case 'trash':
+                explanation = "tidak bisa didaur ulang";
+                suggestion = "Bawa ke bank sampah pakaian terdekat";
+                break;
+        }
+
+
         if (bestProbability >= validScore[0] || validScore[1]) {
             return {
                 label: resultLabel,

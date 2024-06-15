@@ -40,10 +40,10 @@ gcloud builds submit --tag asia-southeast2-docker.pkg.dev/PROJECT-ID/capstone-ba
 ```bash
 gcloud run deploy atongs-backend \
     --image asia-southeast2-docker.pkg.dev/PROJECT-ID/capstone-backend/atongs-backend:1.0.0 \
-    --cpu=2 \
-    --memory=2Gi \
+    --cpu=4 \
+    --memory=4Gi \
     --timeout=3600 \
-    --max-instances=50 \
+    --max-instances=25 \
     --allow-unauthenticated \
     --region=asia-southeast2
 ```

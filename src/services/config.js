@@ -5,10 +5,10 @@ const { GoogleAuth } = require('google-auth-library');
 
 const MODEL_NAME = 'models/text-bison-001';
 const API_KEY = process.env.GOOGLE_API_KEY; // Deployed Environment
-// const API_KEY = 'api_key_here'; // Local environment
+// const API_KEY = 'REDACTED'; // Local environment
 
 if (!API_KEY) {
-    throw new Error('API Key is missing. Please set the GOOGLE_AI_STUDIO_KEY in your .env file.');
+    throw new Error('API Key is missing. Please set the GOOGLE_API_KEY in your .env file.');
 }
 
 const textClient = new TextServiceClient({

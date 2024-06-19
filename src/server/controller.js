@@ -7,6 +7,7 @@ const multer = require('multer');
 const upload = multer();
 const crypto = require('crypto');
 const classifyCollectionName = 'classifications-collection';
+const moment = require('moment');
 
 const firestore = new Firestore();
 const storage = new Storage();
@@ -18,6 +19,11 @@ async function saveClassification(id, data, imageUrl) {
     });
     return documentRef.id;
 }
+
+exports.welcome = async (req, res) => {
+    const welcomeMessage = "Welcome to the ATongs API!";
+    return res.status(200).json({ message: welcomeMessage });
+};
 
 exports.classify = upload.single('image');
 
@@ -99,6 +105,35 @@ exports.handleClassify = async (req, res) => {
     }
 };
 
+// Function to filter classification histories by date range
+function filterClassifyHistoriesByDateRange(histories, range) {
+    const today = moment().startOf('day');
+    let startDate;
+
+    switch (range) {
+        case 'today':
+            startDate = today;
+            break;
+        case 'yesterday':
+            startDate = moment().subtract(1, 'day').startOf('day');
+            break;
+        case 'week':
+            startDate = moment().startOf('week');
+            break;
+        case 'month':
+            startDate = moment().startOf('month');
+            break;
+        default:
+            startDate = null;
+    }
+
+    if (startDate) {
+        return histories.filter(history => moment(history.createdAt).isSameOrAfter(startDate));
+    } else {
+        return histories;
+    }
+}
+
 exports.handleClassifyHistories = async (req, res) => {
     try {
         const classificationsSnapshot = await firestore.collection(classifyCollectionName).get();
@@ -110,8 +145,7 @@ exports.handleClassifyHistories = async (req, res) => {
             try {
                 parsedResult = JSON.parse(data.result);
             } catch (error) {
-                // console.error(`Error parsing result for document ${doc.id}:`, error.message);
-                parsedResult = data.result;  // Assign the raw result if parsing fails
+                parsedResult = data.result;
             }
 
             const orderedResult = {
@@ -132,10 +166,14 @@ exports.handleClassifyHistories = async (req, res) => {
             classifications.push(formattedClassification);
         });
 
+        // Handle filtering based on range parameter
+        const range = req.query.range || 'all'; // Default to 'all' if range not specified
+        const filteredClassifications = filterClassifyHistoriesByDateRange(classifications, range);
+
         const response = {
             status: 'success',
             message: 'Classification histories fetched successfully',
-            data: classifications
+            data: filteredClassifications
         };
 
         return res.status(200).json(response);

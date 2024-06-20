@@ -6,7 +6,7 @@
   - [Table of Contents](#table-of-contents)
   - [Description](#description)
   - [Tech Stacks](#tech-stacks)
-  - [Infrastructure Diagram](#infrastructure-diagram)
+  - [Cloud Infrastructure Diagram](#cloud-infrastructure-diagram)
   - [Application Flow](#application-flow)
   - [API Documentation](#api-documentation)
   - [Deploy on GCP](#deploy-on-gcp)
@@ -18,7 +18,7 @@ This repository is for the Backend side of the ATongs Application. The results w
 
 ![ATongs Tech Stacks](assets/architecture/atongs-tech-stacks.png)
 
-## Infrastructure Diagram
+## Cloud Infrastructure Diagram
 
 ![ATongs Infrastructure Diagram](assets/architecture/atongs-infrastructure-diagram.gif)
 
@@ -28,8 +28,11 @@ This repository is for the Backend side of the ATongs Application. The results w
 
 ## API Documentation
 
-Check ATongs API's Postman Documentation [here](https://documenter.getpostman.com/view/24299358/2sA3XSB1Ut) <br>
-Also check API [Testing Example](testing-api.md)
+Check ATongs API's Postman Documentation here
+- [Postman Documentation](https://documenter.getpostman.com/view/24299358/2sA3XSB1Ut)
+
+Also check API Testing Example
+- [API Testing Example](testing-api.md)
 
 ## Deploy on GCP
 
